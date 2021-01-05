@@ -63,6 +63,13 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     bindex (0.8.1)
+    blacklight (7.13.2)
+      deprecation
+      globalid
+      jbuilder (~> 2.7)
+      kaminari (>= 0.15)
+      rails (>= 5.1, < 7)
+      view_component
     bootsnap (1.5.1)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -78,6 +85,8 @@ GEM
     childprocess (3.0.0)
     concurrent-ruby (1.1.7)
     crass (1.0.6)
+    deprecation (1.0.0)
+      activesupport
     erubi (1.10.0)
     ffi (1.14.2)
     globalid (0.4.2)
@@ -86,6 +95,18 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
+    kaminari (1.2.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.1)
+      kaminari-activerecord (= 1.2.1)
+      kaminari-core (= 1.2.1)
+    kaminari-actionview (1.2.1)
+      actionview
+      kaminari-core (= 1.2.1)
+    kaminari-activerecord (1.2.1)
+      activerecord
+      kaminari-core (= 1.2.1)
+    kaminari-core (1.2.1)
     listen (3.4.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -179,6 +200,8 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    view_component (2.24.0)
+      activesupport (>= 5.0.0, < 7.0)
     web-console (4.1.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -204,6 +227,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  blacklight (>= 7.0)
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
