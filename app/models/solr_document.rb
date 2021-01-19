@@ -16,4 +16,5 @@ class SolrDocument
   # and Blacklight::Document::SemanticFields#to_semantic_values
   # Recommendation: Use field names from Dublin Core
   use_extension(Blacklight::Document::DublinCore)
+  use_extension(Blacklight::Document::OriginalMetadata)
 end
