@@ -3,6 +3,17 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
 
+  breakline_options = {
+    two_words_connector: '<br />',
+    words_connector: '<br />',
+    last_word_connector: '<br />'
+  }
+
+  before_action do
+    Blacklight::Rendering::Pipeline.operations.unshift(Blacklight::Rendering::Linkify)
+  end
+
+
   configure_blacklight do |config|
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
@@ -39,13 +50,14 @@ class CatalogController < ApplicationController
     config.add_results_collection_tool(:per_page_widget)
     config.add_results_collection_tool(:view_type_group)
 
-    config.add_show_tools_partial(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
-    config.add_show_tools_partial(:email, callback: :email_action, validator: :validate_email_params)
-    config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :validate_sms_params)
-    config.add_show_tools_partial(:citation)
+    # TODO investigate these
+    #config.add_show_tools_partial(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
+    #config.add_show_tools_partial(:email, callback: :email_action, validator: :validate_email_params)
+    #config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :validate_sms_params)
+    #config.add_show_tools_partial(:citation)
 
-    config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
-    config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
+    #config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
+    #config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
 
     # solr field configuration for document/show views
     #config.show.title_field = 'title_tsim'
@@ -91,6 +103,8 @@ class CatalogController < ApplicationController
        :years_10 => { label: 'within 10 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 10 } TO *]" },
        :years_25 => { label: 'within 25 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 25 } TO *]" }
     }
+    # LINDAT
+    config.add_facet_field 'type_ssim', label: 'Type'
 
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -126,6 +140,14 @@ class CatalogController < ApplicationController
     config.add_show_field 'published_vern_ssim', label: 'Published'
     config.add_show_field 'lc_callnum_ssim', label: 'Call number'
     config.add_show_field 'isbn_ssim', label: 'ISBN'
+    # LINDAT
+    config.add_show_field 'publisher_tsim', label: 'Publisher'
+    config.add_show_field 'identifier_ssim', label: 'Identifier', separator_options: breakline_options, linkify: true
+    config.add_show_field 'subject_ssim', label: 'Subject'
+    config.add_show_field 'type_ssim', label: 'Type', link_to_facet: true
+    config.add_show_field 'desription_tsi', label: 'Desription'
+    config.add_show_field 'language_iso_ssim', label: 'Language ISO'
+    #date_dtsim
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
