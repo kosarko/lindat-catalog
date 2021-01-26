@@ -1,0 +1,17 @@
+<%= render 'show_tools' %>
+<%= render(Blacklight::Document::MoreLikeThisComponent.new(document: document)) %>
+<div class="card show-tools">
+  <div class="card-header">
+    <h2 class="mb-0 h6"><%= t('blacklight.sidebar.original_context') %></h2>
+  </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <%= blacklight_icon('fa_cc_by_4.0_international/home-solid') %>
+          <%= link_to "Show original", @document[:landingPage_ssm].first %>
+        </li>
+        <li class="list-group-item">
+          <%= blacklight_icon('fa_cc_by_4.0_international/eye-solid') %>
+          <%= link_to "Show harvested metadata", solr_document_path(@document) + ".xml" %>
+        </li>
+    </ul>
+</div>
