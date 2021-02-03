@@ -21,5 +21,11 @@
     <div id="doc_<%= @document.id.to_s.parameterize %>">
       <%= render_document_partials @document, blacklight_config.view_config(:show).partials, component: component %>
     </div>
+    <div class="alert alert-primary">The item or associated files might be "in copyright"; review the provided rights metadata
+      <% @document['rights_ssim'].each do |rights| %>
+          <%= linkify(rights) %> <br />
+      <% end %>
+      and the original context.
+    </div>
   <% end %>
 <% end %>
