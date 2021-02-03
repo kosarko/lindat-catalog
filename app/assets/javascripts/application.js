@@ -10,3 +10,6 @@
 //= require bootstrap
 //= require blacklight/blacklight
 
+// LINDAT
+//= require new_theme/public/js/lindat
+
