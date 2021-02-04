@@ -16,6 +16,13 @@
     <field name="lng" type="tdouble" stored="true" indexed="true" multiValued="false"/>
     <!-- NOTE:  not all possible Solr field types are represented in the dynamic fields -->
 
+    <!-- LINDAT required fields -->
+      <!-- id is required too, don't rename id eg. to pid -->
+      <field name="landingPage" type="string" stored="true" required="true"/>
+      <field name="rights" type="string" stored="true" indexed="true" multiValued="true" required="true"/>
+      <field name="displayName" type="text" stored="true" indexed="true" required="true" />
+    <!-- // -->
+
     <!-- text (_t...) -->
 
     <dynamicField name="*_ti" type="text" stored="false" indexed="true" multiValued="false"/>

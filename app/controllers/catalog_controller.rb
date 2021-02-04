@@ -40,7 +40,7 @@ class CatalogController < ApplicationController
     #config.per_page = [10,20,50,100]
 
     # solr field configuration for search results/index views
-    config.index.title_field = 'title_tsim'
+    config.index.title_field = 'displayName'
     #config.index.display_type_field = 'format'
     #config.index.thumbnail_field = 'thumbnail_path_ss'
 
@@ -147,6 +147,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'type_ssim', label: 'Type', link_to_facet: true
     config.add_show_field 'desription_tsi', label: 'Desription'
     config.add_show_field 'language_iso_ssim', label: 'Language ISO'
+    config.add_show_field 'rights', label: 'Rights', separator_options: breakline_options, link_to_facet: true
     #date_dtsim
 
     # "fielded" search configuration. Used by pulldown among other places.
