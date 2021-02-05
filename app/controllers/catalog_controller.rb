@@ -10,7 +10,9 @@ class CatalogController < ApplicationController
   }
 
   before_action do
-    Blacklight::Rendering::Pipeline.operations.unshift(Blacklight::Rendering::Linkify)
+    #    Blacklight::Rendering::Pipeline.operations.unshift(Blacklight::Rendering::Linkify)
+    # -1, last, is join; insert before that
+    Blacklight::Rendering::Pipeline.operations.insert(-2, Blacklight::Rendering::Linkify)
   end
 
 
@@ -88,23 +90,31 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'format', label: 'Format'
-    config.add_facet_field 'pub_date_ssim', label: 'Publication Year', single: true
-    config.add_facet_field 'subject_ssim', label: 'Topic', limit: 20, index_range: 'A'..'Z'
-    config.add_facet_field 'language_ssim', label: 'Language', limit: true
-    config.add_facet_field 'lc_1letter_ssim', label: 'Call Number'
-    config.add_facet_field 'subject_geo_ssim', label: 'Region'
-    config.add_facet_field 'subject_era_ssim', label: 'Era'
-
-    config.add_facet_field 'example_pivot_field', label: 'Pivot Field', pivot: ['format', 'language_ssim'], collapsing: true
-
-    config.add_facet_field 'example_query_facet_field', label: 'Publish Date', :query => {
-       :years_5 => { label: 'within 5 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 5 } TO *]" },
-       :years_10 => { label: 'within 10 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 10 } TO *]" },
-       :years_25 => { label: 'within 25 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 25 } TO *]" }
-    }
+    # config.add_facet_field 'format', label: 'Format'
+    # config.add_facet_field 'pub_date_ssim', label: 'Publication Year', single: true
+    # config.add_facet_field 'subject_ssim', label: 'Topic', limit: 20, index_range: 'A'..'Z'
+    # config.add_facet_field 'language_ssim', label: 'Language', limit: true
+    # config.add_facet_field 'lc_1letter_ssim', label: 'Call Number'
+    # config.add_facet_field 'subject_geo_ssim', label: 'Region'
+    # config.add_facet_field 'subject_era_ssim', label: 'Era'
+    #
+    # config.add_facet_field 'example_pivot_field', label: 'Pivot Field', pivot: ['format', 'language_ssim'], collapsing: true
+    #
+    # config.add_facet_field 'example_query_facet_field', label: 'Publish Date', :query => {
+    #   :years_5 => { label: 'within 5 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 5 } TO *]" },
+    #   :years_10 => { label: 'within 10 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 10 } TO *]" },
+    #   :years_25 => { label: 'within 25 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 25 } TO *]" }
+    # }
     # LINDAT
-    config.add_facet_field 'type_ssim', label: 'Type'
+    config.add_facet_field 'contributor_ssim', label: 'Contributor', limit: true
+    config.add_facet_field 'coverage_ssim', label: 'Coverage', limit: true
+    config.add_facet_field 'creator_ssim', label: 'Creator', limit: true
+    config.add_facet_field 'format', label: 'Format', limit: true
+    config.add_facet_field 'language_ssim', label: 'Language', limit: true
+    config.add_facet_field 'publisher_ssim', label: 'Publisher', limit: true
+    config.add_facet_field 'rights', label: 'Rights', limit: true
+    config.add_facet_field 'subject_ssim', label: 'Subject', limit: true
+    config.add_facet_field 'type_ssim', label: 'Type', limit: true
 
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -114,41 +124,59 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'title_tsim', label: 'Title'
-    config.add_index_field 'title_vern_ssim', label: 'Title'
-    config.add_index_field 'author_tsim', label: 'Author'
-    config.add_index_field 'author_vern_ssim', label: 'Author'
-    config.add_index_field 'format', label: 'Format'
-    config.add_index_field 'language_ssim', label: 'Language'
-    config.add_index_field 'published_ssim', label: 'Published'
-    config.add_index_field 'published_vern_ssim', label: 'Published'
-    config.add_index_field 'lc_callnum_ssim', label: 'Call number'
+    # config.add_index_field 'title_tsim', label: 'Title'
+    # config.add_index_field 'title_vern_ssim', label: 'Title'
+    # config.add_index_field 'author_tsim', label: 'Author'
+    # config.add_index_field 'author_vern_ssim', label: 'Author'
+    # config.add_index_field 'format', label: 'Format'
+    # config.add_index_field 'language_ssim', label: 'Language'
+    # config.add_index_field 'published_ssim', label: 'Published'
+    # config.add_index_field 'published_vern_ssim', label: 'Published'
+    # config.add_index_field 'lc_callnum_ssim', label: 'Call number'
+
+    config.add_index_field 'creator_ssim', label: 'Creator', link_to_facet: true
+    config.add_index_field 'publisher_ssim', label: 'Publisher', link_to_facet: true
+    config.add_index_field 'format', label: 'Format', link_to_facet: true
+    config.add_index_field 'type_ssim', label: 'Type', link_to_facet: true
+    config.add_index_field 'subject_ssim', label: 'Subject', link_to_facet: true
+    config.add_index_field 'language_ssim', label: 'Language', link_to_facet: true
+    config.add_index_field 'description_tsim', label: 'Description'
+    config.add_index_field 'rights', label: 'Rights', link_to_facet: true
+
+    # TODO hasfiles???
+    # TODO provider
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'title_tsim', label: 'Title'
-    config.add_show_field 'title_vern_ssim', label: 'Title'
-    config.add_show_field 'subtitle_tsim', label: 'Subtitle'
-    config.add_show_field 'subtitle_vern_ssim', label: 'Subtitle'
-    config.add_show_field 'author_tsim', label: 'Author'
-    config.add_show_field 'author_vern_ssim', label: 'Author'
-    config.add_show_field 'format', label: 'Format'
-    config.add_show_field 'url_fulltext_ssim', label: 'URL'
-    config.add_show_field 'url_suppl_ssim', label: 'More Information'
-    config.add_show_field 'language_ssim', label: 'Language'
-    config.add_show_field 'published_ssim', label: 'Published'
-    config.add_show_field 'published_vern_ssim', label: 'Published'
-    config.add_show_field 'lc_callnum_ssim', label: 'Call number'
-    config.add_show_field 'isbn_ssim', label: 'ISBN'
+    # config.add_show_field 'title_vern_ssim', label: 'Title'
+    # config.add_show_field 'subtitle_tsim', label: 'Subtitle'
+    # config.add_show_field 'subtitle_vern_ssim', label: 'Subtitle'
+    # config.add_show_field 'author_vern_ssim', label: 'Author'
+    # config.add_show_field 'url_fulltext_ssim', label: 'URL'
+    # config.add_show_field 'url_suppl_ssim', label: 'More Information'
+    # config.add_show_field 'published_ssim', label: 'Published'
+    # config.add_show_field 'published_vern_ssim', label: 'Published'
+    # config.add_show_field 'lc_callnum_ssim', label: 'Call number'
+    # config.add_show_field 'isbn_ssim', label: 'ISBN'
     # LINDAT
-    config.add_show_field 'publisher_tsim', label: 'Publisher'
+    config.add_show_field 'title_tsim', label: 'Title'
+    config.add_show_field 'creator_ssim', label: 'Creator', link_to_facet: true
+    config.add_show_field 'contributor_ssim', label: 'Contributor', link_to_facet: true
+    config.add_show_field 'publisher_ssim', label: 'Publisher', link_to_facet: true
     config.add_show_field 'identifier_ssim', label: 'Identifier', separator_options: breakline_options, linkify: true
-    config.add_show_field 'subject_ssim', label: 'Subject'
+    config.add_show_field 'subject_ssim', label: 'Subject', link_to_facet: true
     config.add_show_field 'type_ssim', label: 'Type', link_to_facet: true
-    config.add_show_field 'desription_tsi', label: 'Desription'
-    config.add_show_field 'language_iso_ssim', label: 'Language ISO'
+    config.add_show_field 'format', label: 'Format', link_to_facet: true
+    config.add_show_field 'description_tsim', label: 'Description'
+    config.add_show_field 'language_ssim', label: 'Language', link_to_facet: true
+    #config.add_show_field 'language_iso_ssim', label: 'Language ISO'
+    #config.add_show_field 'landingPage_ssm', label:
     config.add_show_field 'rights', label: 'Rights', separator_options: breakline_options, link_to_facet: true
-    #date_dtsim
+    config.add_show_field 'coverage_ssim', label: 'Coverage', link_to_facet: true
+    config.add_show_field 'relation_ssm', label: 'Relation', linkify: true
+    config.add_show_field 'source_ssm', label: 'Source', linkify: true
+    config.add_show_field 'date_ssm', label: 'Date'
+    # TODO date_dtsim
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
