@@ -222,6 +222,8 @@
   <copyField source="*_ssim" dest="suggest" maxChars="400"/>
   <copyField source="*_si" dest="suggest" maxChars="400"/>
 
+  <copyField source="displayName" dest="displayName_ssort"/>
+
   <!-- TODO: Look into if these are actually being used. -->
   <copyField source="*_tsim" dest="spell"/>
   <copyField source="*_tesim" dest="spell"/>
