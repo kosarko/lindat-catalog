@@ -162,6 +162,13 @@
       <str name="accuracy">0.7</str>
       <str name="buildOnOptimize">true</str>
     </lst>
+    <lst name="spellchecker">
+      <str name="name">displayName</str>
+      <str name="field">displayName_spell</str>
+      <str name="spellcheckIndexDir">./spell_displayName</str>
+      <str name="accuracy">0.7</str>
+      <str name="buildOnOptimize">true</str>
+    </lst>
   </searchComponent>
 
   <searchComponent name="suggest" class="solr.SuggestComponent">
