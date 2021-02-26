@@ -2,6 +2,8 @@
 class CatalogController < ApplicationController
 
   include Blacklight::Catalog
+  include BlacklightRangeLimit::ControllerOverride
+
 
   breakline_options = {
     two_words_connector: '<br />',
@@ -115,6 +117,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'rights', label: 'Rights', limit: true
     config.add_facet_field 'subject_ssim', label: 'Subject', limit: true
     config.add_facet_field 'type_ssim', label: 'Type', limit: true
+    config.add_facet_field 'date_itsim', label: 'Date', limit: true, range: true
     config.add_facet_field 'metadataOnly', label: 'Original context has metadata only', single: true
     config.add_facet_field 'harvestedFrom', label: 'Harvested from', limit: true
 
