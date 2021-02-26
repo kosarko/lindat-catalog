@@ -21,6 +21,8 @@
       <field name="landingPage" type="string" stored="true" required="true"/>
       <field name="rights" type="string" stored="true" indexed="true" multiValued="true" required="true"/>
       <field name="displayName" type="text" stored="true" indexed="true" required="true" />
+      <field name="metadataOnly" type="boolean" stored="true" indexed="true" required="true" />
+      <field name="harvestedFrom" type="string" stored="true" indexed="true" required="true"/>
     <!-- // -->
 
     <!-- text (_t...) -->
@@ -241,7 +243,7 @@
 
   <types>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true" />
-    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" docValues="true"/>
     <fieldType name="rand" class="solr.RandomSortField" omitNorms="true"/>
 
     <!-- Default numeric field types.  -->

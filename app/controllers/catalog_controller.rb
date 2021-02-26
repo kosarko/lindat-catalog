@@ -115,6 +115,8 @@ class CatalogController < ApplicationController
     config.add_facet_field 'rights', label: 'Rights', limit: true
     config.add_facet_field 'subject_ssim', label: 'Subject', limit: true
     config.add_facet_field 'type_ssim', label: 'Type', limit: true
+    config.add_facet_field 'metadataOnly', label: 'Original context has metadata only', single: true
+    config.add_facet_field 'harvestedFrom', label: 'Harvested from', limit: true
 
 
     # Have BL send all facet field names to Solr, which has been the default
