@@ -11,6 +11,15 @@
   <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.StandardDirectoryFactory}"/>
 
   <updateHandler class="solr.DirectUpdateHandler2">
+    <autoCommit>
+      <!--  Documents are added in bulk, so hard commit to disk every 15sec, but wait 15mins to show the data (via softcommit) -->
+      <maxTime>15000</maxTime>
+      <openSearcher>false</openSearcher>
+    </autoCommit>
+    <autoSoftCommit>
+      <!--  15min -->
+      <maxTime>900000</maxTime>
+    </autoSoftCommit>
     <updateLog>
       <str name="dir">${solr.core0.data.dir:}</str>
     </updateLog>
@@ -203,7 +212,10 @@
       <str name="name">mySuggester</str>
       <str name="lookupImpl">FuzzyLookupFactory</str>
       <str name="suggestAnalyzerFieldType">textSuggest</str>
-      <str name="buildOnCommit">true</str>
+      <str name="buildOnCommit">false</str>
+      <!--
+      <str name="buildOnStartup">false</str>
+      -->
       <str name="field">suggest</str>
     </lst>
   </searchComponent>
