@@ -24,6 +24,7 @@
       <field name="metadataOnly" type="boolean" stored="true" indexed="true" required="true" default="true" />
       <field name="harvestedFrom" type="string" stored="true" indexed="true" required="true"/>
       <field name="oai_id" type="string" stored="true" indexed="true" multiValued="false" required="true"/>
+      <field name="original_metadata_ss" type="string" stored="true" indexed="false" multiValued="false" docValues="false" required="true"/>
     <!-- // -->
 
     <!-- text (_t...) -->
