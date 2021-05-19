@@ -11,12 +11,6 @@ class CatalogController < ApplicationController
     last_word_connector: '<br />'
   }
 
-  before_action do
-    #    Blacklight::Rendering::Pipeline.operations.unshift(Blacklight::Rendering::Linkify)
-    # -1, last, is join; insert before that
-    Blacklight::Rendering::Pipeline.operations.insert(-2, Blacklight::Rendering::Linkify)
-  end
-
 
   configure_blacklight do |config|
     ## Class for sending and receiving requests from a search index
