@@ -39,6 +39,14 @@
       <str name="replacement"></str>
       <bool name="literalReplacement">true</bool>
     </processor>
+
+    <processor class="solr.RegexReplaceProcessorFactory">
+      <str name="fieldName">id</str>
+      <str name="pattern">[/.?]</str>
+      <str name="replacement">_</str>
+      <bool name="literalReplacement">true</bool>
+    </processor>
+
     <!-- TODO trim? though we would need to trim in the xslt -->
     <processor class="solr.RemoveBlankFieldUpdateProcessorFactory"/>
     <!-- these are default -->
