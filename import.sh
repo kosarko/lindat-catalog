@@ -9,14 +9,17 @@ export SHELLOPTS
 WD=$(dirname "$(readlink -e "$0")")
 COMMIT=false
 BUILD=false
+MTIME=
 
-while getopts ":u:cb" opt; do
+while getopts ":u:cbm:" opt; do
         case ${opt} in
                 u ) URL="$OPTARG"
                         ;;
                 c ) COMMIT=true
                         ;;
                 b ) BUILD=true
+                        ;;
+                m ) MTIME="-mtime $OPTARG"
                         ;;
                 \? ) echo "Usage: cmd -u solr_core_url -c -b DIR..."
                      exit 1
@@ -39,7 +42,7 @@ shift
 
 echo "Feeding $URL with data from $SRC_DIR" 1>&2
 
-find "$SRC_DIR" -type f -name '*.xml' -print0 | xargs -0 -n 1 -P "$CPUS" -I filename curl "$URL/update" -H "Content-Type: text/xml" --data-binary @filename
+find "$SRC_DIR" -type f $MTIME -name '*.xml' -print0 | xargs -0 -n 1 -P "$CPUS" -I filename curl "$URL/update" -H "Content-Type: text/xml" --data-binary @filename
 
 if $COMMIT; then
   curl "$URL/update" -H "Content-Type: text/xml" --data-binary '<commit softCommit="true" />'
