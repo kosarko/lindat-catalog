@@ -158,7 +158,7 @@ class CatalogController < ApplicationController
     # config.add_show_field 'lc_callnum_ssim', label: 'Call number'
     # config.add_show_field 'isbn_ssim', label: 'ISBN'
     # LINDAT
-    config.add_show_field 'title_tsim', label: 'Title'
+    config.add_show_field 'title_tsim', label: 'Title', separator_options: breakline_options
     config.add_show_field 'creator_ssim', label: 'Creator', link_to_facet: true
     config.add_show_field 'contributor_ssim', label: 'Contributor', link_to_facet: true
     config.add_show_field 'publisher_ssim', label: 'Publisher', link_to_facet: true
@@ -172,7 +172,7 @@ class CatalogController < ApplicationController
     #config.add_show_field 'landingPage_ssm', label:
     config.add_show_field 'rights', label: 'Rights', separator_options: breakline_options, link_to_facet: true
     config.add_show_field 'coverage_ssim', label: 'Coverage', link_to_facet: true
-    config.add_show_field 'relation_ssm', label: 'Relation', linkify: true
+    config.add_show_field 'relation_ssm', label: 'Relation', separator_options: breakline_options, linkify: true
     config.add_show_field 'source_ssm', label: 'Source', linkify: true
     config.add_show_field 'date_ssm', label: 'Date'
     # TODO date_dtsim
