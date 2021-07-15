@@ -223,6 +223,7 @@
       <str name="buildOnCommit">false</str>
       <str name="buildOnStartup">false</str>
       <str name="field">suggest</str>
+      <str name="storeDir">suggest_fuzzy_default_dict_impl</str>
     </lst>
   </searchComponent>
 
