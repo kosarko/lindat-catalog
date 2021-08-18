@@ -97,7 +97,18 @@
         </str>
 
        <str name="fl">
-         *,
+         <!-- keep in sync with catalog_controller...index_field -->
+         creator_ssim,
+         publisher_ssim,
+         format,
+         type_ssim,
+         subject_ssim,
+         language_ssim,
+         description_tsim,
+         rights,
+         <!-- //// -->
+         id,
+         displayName,
          score
        </str>
 
@@ -116,6 +127,39 @@
     <arr name="last-components">
       <str>spellcheck</str>
     </arr>
+  </requestHandler>
+
+  <requestHandler name="document" class="solr.SearchHandler" >
+    <lst name="defaults">
+      <str name="echoParams">all</str>
+      <str name="fl">
+        <!-- keep in sync with catalog_controller...show_field -->
+        title_tsim,
+        creator_ssim,
+        contributor_ssim,
+        publisher_ssim,
+        identifier_ssim,
+        subject_ssim,
+        type_ssim,
+        format,
+        description_tsim,
+        language_ssim,
+        rights,
+        coverage_ssim,
+        relation_ssm,
+        source_ssm,
+        date_ssm,
+        <!-- //// -->
+        id,
+        displayName,
+        landingPage,
+          <!-- TODO fetch on demand only? -->
+        original_metadata_ss
+      </str>
+      <str name="rows">1</str>
+      <bool name="facet">false</bool>
+      <str name="q">{!raw f=id v=$id}</str> <!-- use id=666 instead of q=id:666 -->
+    </lst>
   </requestHandler>
 
   <requestHandler name="standard" class="solr.SearchHandler">
