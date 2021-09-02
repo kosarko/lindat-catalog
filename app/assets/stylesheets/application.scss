@@ -1,11 +1,12 @@
-$dark: #39688b; // Set the dark variable to a custom one
-
-
 /*
 * Used by blacklight_range_limit
 *= require  'blacklight_range_limit'
 */
 
+$dark: #39688b; // Set the dark variable to a custom one
+
+
+$logo-image: image_url('blacklight/LINDAT-CLARIAH-cz.svg');
 @import 'blacklight';
 //from vendor/assets/lindat-common
 //@import 'new_theme/public/css/lindat-dark';
