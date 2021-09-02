@@ -8,5 +8,9 @@ $dark: #39688b; // Set the dark variable to a custom one
 
 $logo-image: image_url('blacklight/LINDAT-CLARIAH-cz.svg');
 @import 'blacklight';
+
+#search {
+  padding: 0rem 0.75rem;
+}
 //from vendor/assets/lindat-common
 //@import 'new_theme/public/css/lindat-dark';
