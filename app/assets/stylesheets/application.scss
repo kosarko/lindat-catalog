@@ -1,10 +1,11 @@
-$dark: #39688b; // Set the dark variable to a custom one
-
-
 /*
 * Used by blacklight_range_limit
 *= require  'blacklight_range_limit'
+* lindat-common
+*= require 'public/css/lindat'
 */
+
+$dark: #39688b; // Set the dark variable to a custom one
 
 @import 'blacklight';
 //from vendor/assets/lindat-common
