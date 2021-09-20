@@ -1,12 +1,17 @@
 /*
 * Used by blacklight_range_limit
 *= require  'blacklight_range_limit'
+* lindat-common
+*= require 'public/css/lindat'
 */
 
 $dark: #39688b; // Set the dark variable to a custom one
 
+<<<<<<< HEAD
 
 $logo-image: image_url('blacklight/LINDAT-CLARIAH-cz.svg');
+=======
+>>>>>>> master
 @import 'blacklight';
 
 #search {
