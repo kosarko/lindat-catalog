@@ -13,6 +13,11 @@ class CatalogController < ApplicationController
 
 
   configure_blacklight do |config|
+
+    # prevent storing searches (serialized query params) in db
+    # see https://github.com/projectblacklight/blacklight/pull/1736#issuecomment-335977563
+    config.crawler_detector = lambda { |req| true }
+
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
     #
@@ -263,5 +268,16 @@ class CatalogController < ApplicationController
     # if the name of the solr.SuggestComponent provided in your solrconfig.xml is not the
     # default 'mySuggester', uncomment and provide it below
     # config.autocomplete_suggester = 'mySuggester'
+  end
+end
+
+# XXX bit of a monkey patch; as we have no users; current_user is never defined and the .present? errors out
+module Blacklight::SearchContext
+
+  def agent_is_crawler?
+    crawler_proc = blacklight_config.crawler_detector
+    return false if crawler_proc.nil? || (defined?(current_user) && current_user.present?)
+
+    crawler_proc.call(request)
   end
 end
