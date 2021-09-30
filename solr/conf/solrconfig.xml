@@ -154,7 +154,9 @@
         id,
         displayName,
         landingPage,
-          <!-- TODO fetch on demand only? -->
+        harvestedFrom,
+        metadataOnly,
+        <!-- TODO fetch on demand only? -->
         original_metadata_ss
       </str>
       <str name="rows">1</str>
