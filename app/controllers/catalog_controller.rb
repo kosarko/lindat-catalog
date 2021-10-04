@@ -186,6 +186,7 @@ class CatalogController < ApplicationController
     # accessor is there because vendor/ruby/2.7.0/gems/actionview-6.1.0/lib/action_view/helpers/url_helper.rb#link_to
     # would not use the `false` value and display `/?f%5BmetadataOnly%5D%5B%5D=false` instead
     config.add_show_field 'metadataOnly', label: 'Metadata only', link_to_facet: true, accessor: :bool_accessor
+    config.add_show_field 'date_ssm', label: 'Date'
     # TODO date_dtsim
 
     # "fielded" search configuration. Used by pulldown among other places.

@@ -87,9 +87,12 @@
        -->
         <str name="qf">
           id
+          displayName
           title_tsim
-          author_tsim
-          subject_tsim
+          creator_tsim
+          publisher_tsim
+          contributor_tsim
+          description_tsim
           all_text_timv
         </str>
         <str name="pf">
