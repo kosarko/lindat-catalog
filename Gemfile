@@ -64,3 +64,9 @@ gem 'rsolr', '>= 1.0', '< 3'
 gem 'bootstrap', '~> 4.0'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 gem 'jquery-rails'
+
+gem "puma-status", "~> 1.3"
+gem "yabeda-puma-plugin", "~> 0.6.0"
+gem "yabeda-rails", "~> 0.7.2"
+gem "yabeda-prometheus-mmap", "~> 0.2.0"
+
