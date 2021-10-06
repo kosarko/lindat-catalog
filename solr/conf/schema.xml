@@ -223,6 +223,10 @@
 
   <copyField source="displayName" dest="all_text_timv" maxChars="3000"/>
   <copyField source="format" dest="all_text_timv" maxChars="3000"/>
+  <!-- TODO this contains xml tags, remove those maybe?
+            the maxChar limit trims the field on about 10% of resources
+   -->
+  <copyField source="orginal_metadata_ss" dest="all_text_timv" maxChars="3000"/>
 
   <copyField source="*_tsim" dest="suggest" maxChars="400"/>
   <copyField source="*_tesim" dest="suggest" maxChars="400"/>
@@ -236,10 +240,6 @@
   <copyField source="*_tesim" dest="spell"/>
   <copyField source="*_ssim" dest="spell"/>
   <copyField source="*_si" dest="spell"/>
-
-  <copyField source="author_tsim" dest="author_spell"/>
-  <copyField source="subject_ssim" dest="subject_spell"/>
-  <copyField source="title_tsim" dest="title_spell"/>
 
   <copyField source="displayName" dest="displayName_spell"/>
 

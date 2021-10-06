@@ -13,6 +13,11 @@ class CatalogController < ApplicationController
 
 
   configure_blacklight do |config|
+
+    # prevent storing searches (serialized query params) in db
+    # see https://github.com/projectblacklight/blacklight/pull/1736#issuecomment-335977563
+    config.crawler_detector = lambda { |req| true }
+
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
     #
@@ -33,6 +38,9 @@ class CatalogController < ApplicationController
     # solr path which will be added to solr base url before the other solr params.
     #config.solr_path = 'select'
     #config.document_solr_path = 'get'
+    config.document_solr_request_handler = 'document'
+    config.document_solr_path = 'select'
+    config.document_unique_id_param = 'id'
 
     # items to show per page, each number in the array represent another option to choose from.
     #config.per_page = [10,20,50,100]
@@ -111,7 +119,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'rights', label: 'Rights', limit: true
     config.add_facet_field 'subject_ssim', label: 'Subject', limit: true
     config.add_facet_field 'type_ssim', label: 'Type', limit: true
-    config.add_facet_field 'date_itsim', label: 'Date', limit: true, range: true
+    config.add_facet_field 'date_itsim', label: 'Date', range: true
     config.add_facet_field 'metadataOnly', label: 'Original context has metadata only', single: true
     config.add_facet_field 'harvestedFrom', label: 'Harvested from', limit: true
 
@@ -174,6 +182,10 @@ class CatalogController < ApplicationController
     config.add_show_field 'coverage_ssim', label: 'Coverage', link_to_facet: true
     config.add_show_field 'relation_ssm', label: 'Relation', separator_options: breakline_options, linkify: true
     config.add_show_field 'source_ssm', label: 'Source', linkify: true
+    config.add_show_field 'harvestedFrom', label: 'Harvested from', link_to_facet: true
+    # accessor is there because vendor/ruby/2.7.0/gems/actionview-6.1.0/lib/action_view/helpers/url_helper.rb#link_to
+    # would not use the `false` value and display `/?f%5BmetadataOnly%5D%5B%5D=false` instead
+    config.add_show_field 'metadataOnly', label: 'Metadata only', link_to_facet: true, accessor: :bool_accessor
     config.add_show_field 'date_ssm', label: 'Date'
     # TODO date_dtsim
 
@@ -260,5 +272,16 @@ class CatalogController < ApplicationController
     # if the name of the solr.SuggestComponent provided in your solrconfig.xml is not the
     # default 'mySuggester', uncomment and provide it below
     # config.autocomplete_suggester = 'mySuggester'
+  end
+end
+
+# XXX bit of a monkey patch; as we have no users; current_user is never defined and the .present? errors out
+module Blacklight::SearchContext
+
+  def agent_is_crawler?
+    crawler_proc = blacklight_config.crawler_detector
+    return false if crawler_proc.nil? || (defined?(current_user) && current_user.present?)
+
+    crawler_proc.call(request)
   end
 end
