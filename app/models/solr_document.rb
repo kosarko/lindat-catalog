@@ -2,6 +2,10 @@
 class SolrDocument
   include Blacklight::Solr::Document
 
+  def bool_accessor(f)
+    self[f].to_s
+  end
+
   # self.unique_key = 'id'
 
   # Email uses the semantic field mappings below to generate the body of an email.
