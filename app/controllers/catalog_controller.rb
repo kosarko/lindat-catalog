@@ -121,7 +121,11 @@ class CatalogController < ApplicationController
     config.add_facet_field 'type_ssim', label: 'Type', limit: true
     config.add_facet_field 'date_itsim', label: 'Date', range: true
     config.add_facet_field 'metadataOnly', label: 'Original context has metadata only', single: true
-    config.add_facet_field 'harvestedFrom', label: 'Harvested from', limit: true
+    ### these two are here for the pivot field to work
+    config.add_facet_field 'harvestedFrom', label: 'Harvested from', show: false
+    config.add_facet_field 'dataProvider_ssi', label: 'Data provider', show: false
+    ### ///
+    config.add_facet_field 'provider_pivot_field', label: 'Harvested from', pivot: [:harvestedFrom, :dataProvider_ssi], collapsing: true
 
 
     # Have BL send all facet field names to Solr, which has been the default
