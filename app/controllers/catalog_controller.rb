@@ -110,15 +110,15 @@ class CatalogController < ApplicationController
     #   :years_25 => { label: 'within 25 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 25 } TO *]" }
     # }
     # LINDAT
-    config.add_facet_field 'contributor_ssim', label: 'Contributor', limit: true
-    config.add_facet_field 'coverage_ssim', label: 'Coverage', limit: true
+    config.add_facet_field 'contributor_ssim', label: 'Contributor',  limit: true, prefix_search: true
+    config.add_facet_field 'coverage_ssim', label: 'Coverage',  limit: true, prefix_search: true
     config.add_facet_field 'creator_ssim', label: 'Creator', limit: true, prefix_search: true
-    config.add_facet_field 'format', label: 'Format', limit: true
-    config.add_facet_field 'language_ssim', label: 'Language', limit: true
-    config.add_facet_field 'publisher_ssim', label: 'Publisher', limit: true
-    config.add_facet_field 'rights', label: 'Rights', limit: true
-    config.add_facet_field 'subject_ssim', label: 'Subject', limit: true
-    config.add_facet_field 'type_ssim', label: 'Type', limit: true
+    config.add_facet_field 'format', label: 'Format',  limit: true, prefix_search: true
+    config.add_facet_field 'language_ssim', label: 'Language',  limit: true, prefix_search: true
+    config.add_facet_field 'publisher_ssim', label: 'Publisher',  limit: true, prefix_search: true
+    config.add_facet_field 'rights', label: 'Rights',  limit: true, prefix_search: true
+    config.add_facet_field 'subject_ssim', label: 'Subject',  limit: true, prefix_search: true
+    config.add_facet_field 'type_ssim', label: 'Type',  limit: true, prefix_search: true
     config.add_facet_field 'date_itsim', label: 'Date', range: true
     config.add_facet_field 'metadataOnly', label: 'Original context has metadata only', single: true
     ### these two are here for the pivot field to work
