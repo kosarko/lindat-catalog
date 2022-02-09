@@ -112,7 +112,7 @@ class CatalogController < ApplicationController
     # LINDAT
     config.add_facet_field 'contributor_ssim', label: 'Contributor', limit: true
     config.add_facet_field 'coverage_ssim', label: 'Coverage', limit: true
-    config.add_facet_field 'creator_ssim', label: 'Creator', limit: true
+    config.add_facet_field 'creator_ssim', label: 'Creator', limit: true, prefix_search: true
     config.add_facet_field 'format', label: 'Format', limit: true
     config.add_facet_field 'language_ssim', label: 'Language', limit: true
     config.add_facet_field 'publisher_ssim', label: 'Publisher', limit: true

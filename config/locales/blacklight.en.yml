@@ -3,3 +3,11 @@ en:
     application_name: 'LINDAT/CLARIAH-CZ Catalog'
     sidebar:
       original_context: 'Original context'
+    facet:
+      components:
+        prefix_search:
+          head: 'Show values starting with'
+          tooltip: 'X and x are different prefixes'
+          placeholder: 'Prefixes are case sensitive'
+          button_filter: 'Filter'
+          button_clear: 'Clear'

@@ -1,0 +1,7 @@
+<%
+  presenter = facet_field_presenter(facet_field, display_facet)
+%>
+<%= render Blacklight::PrefixSearch.new(facet_field_presenter: presenter) unless presenter.in_modal? %>
+<%= render(Blacklight::FacetFieldListComponent.new(
+      facet_field: presenter,
+      layout: false)) %>

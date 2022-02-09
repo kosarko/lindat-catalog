@@ -12,5 +12,10 @@ $dark: #39688b; // Set the dark variable to a custom one
 #search {
   padding: 0rem 0.75rem;
 }
+
+#prefix_search_form {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $gray-300;
+}
 //from vendor/assets/lindat-common
 //@import 'new_theme/public/css/lindat-dark';
