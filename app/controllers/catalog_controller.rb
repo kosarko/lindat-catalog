@@ -278,14 +278,3 @@ class CatalogController < ApplicationController
     # config.autocomplete_suggester = 'mySuggester'
   end
 end
-
-# XXX bit of a monkey patch; as we have no users; current_user is never defined and the .present? errors out
-module Blacklight::SearchContext
-
-  def agent_is_crawler?
-    crawler_proc = blacklight_config.crawler_detector
-    return false if crawler_proc.nil? || (defined?(current_user) && current_user.present?)
-
-    crawler_proc.call(request)
-  end
-end
