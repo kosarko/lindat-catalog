@@ -99,6 +99,8 @@ GEM
     colorize (0.8.1)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
+    crawler_detect (1.2.0)
+      qonfig (~> 0.24)
     deprecation (1.1.0)
       activesupport
     domain_name (0.5.20190701)
@@ -178,6 +180,7 @@ GEM
       colorize (~> 0.8)
       net_http_unix (~> 0.2)
       parallel (~> 1)
+    qonfig (0.27.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-mini-profiler (2.3.3)
@@ -317,6 +320,7 @@ DEPENDENCIES
   bootstrap (~> 4.0)
   byebug
   capybara (>= 3.26)
+  crawler_detect
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.3)

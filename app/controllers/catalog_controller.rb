@@ -14,9 +14,10 @@ class CatalogController < ApplicationController
 
   configure_blacklight do |config|
 
-    # prevent storing searches (serialized query params) in db
+    # can't prevent storing searches (serialized query params) in db if we want prev/next document on item-view page
+    # at least don't store the queries for bots
     # see https://github.com/projectblacklight/blacklight/pull/1736#issuecomment-335977563
-    config.crawler_detector = lambda { |req| true }
+    config.crawler_detector = lambda { |req| req.is_crawler? }
 
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
