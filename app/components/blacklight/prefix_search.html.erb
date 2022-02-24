@@ -1,0 +1,7 @@
+<h6><%= t('blacklight.facet.components.prefix_search.head') %></h6>
+<%= form_tag action, method: :get, data: {blacklight_modal: 'trigger'}, id: 'prefix_search_form' do %>
+  <%= text_field_tag name, value, placeholder: t('blacklight.facet.components.prefix_search.placeholder'), title: t('blacklight.facet.components.prefix_search.tooltip'), class: "form-control",  style: "margin-bottom: 0.5rem"  %>
+
+  <button type="submit" class="btn btn-primary"><%= t('blacklight.facet.components.prefix_search.button_filter' ) %></button>
+  <%= link_to t('blacklight.facet.components.prefix_search.button_clear'), clear_prefix_url, data: { blacklight_modal: "preserve" }, class: 'btn btn-primary' if in_modal? %>
+<% end %>

@@ -14,9 +14,10 @@ class CatalogController < ApplicationController
 
   configure_blacklight do |config|
 
-    # prevent storing searches (serialized query params) in db
+    # can't prevent storing searches (serialized query params) in db if we want prev/next document on item-view page
+    # at least don't store the queries for bots
     # see https://github.com/projectblacklight/blacklight/pull/1736#issuecomment-335977563
-    config.crawler_detector = lambda { |req| true }
+    config.crawler_detector = lambda { |req| req.is_crawler? }
 
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
@@ -110,15 +111,15 @@ class CatalogController < ApplicationController
     #   :years_25 => { label: 'within 25 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 25 } TO *]" }
     # }
     # LINDAT
-    config.add_facet_field 'contributor_ssim', label: 'Contributor', limit: true
-    config.add_facet_field 'coverage_ssim', label: 'Coverage', limit: true
-    config.add_facet_field 'creator_ssim', label: 'Creator', limit: true
-    config.add_facet_field 'format', label: 'Format', limit: true
-    config.add_facet_field 'language_ssim', label: 'Language', limit: true
-    config.add_facet_field 'publisher_ssim', label: 'Publisher', limit: true
-    config.add_facet_field 'rights', label: 'Rights', limit: true
-    config.add_facet_field 'subject_ssim', label: 'Subject', limit: true
-    config.add_facet_field 'type_ssim', label: 'Type', limit: true
+    config.add_facet_field 'contributor_ssim', label: 'Contributor',  limit: true, prefix_search: true
+    config.add_facet_field 'coverage_ssim', label: 'Coverage',  limit: true, prefix_search: true
+    config.add_facet_field 'creator_ssim', label: 'Creator', limit: true, prefix_search: true
+    config.add_facet_field 'format', label: 'Format',  limit: true, prefix_search: true
+    config.add_facet_field 'language_ssim', label: 'Language',  limit: true, prefix_search: true
+    config.add_facet_field 'publisher_ssim', label: 'Publisher',  limit: true, prefix_search: true
+    config.add_facet_field 'rights', label: 'Rights',  limit: true, prefix_search: true
+    config.add_facet_field 'subject_ssim', label: 'Subject',  limit: true, prefix_search: true
+    config.add_facet_field 'type_ssim', label: 'Type',  limit: true, prefix_search: true
     config.add_facet_field 'date_itsim', label: 'Date', range: true
     config.add_facet_field 'metadataOnly', label: 'Original context has metadata only', single: true
     ### these two are here for the pivot field to work
@@ -276,16 +277,5 @@ class CatalogController < ApplicationController
     # if the name of the solr.SuggestComponent provided in your solrconfig.xml is not the
     # default 'mySuggester', uncomment and provide it below
     # config.autocomplete_suggester = 'mySuggester'
-  end
-end
-
-# XXX bit of a monkey patch; as we have no users; current_user is never defined and the .present? errors out
-module Blacklight::SearchContext
-
-  def agent_is_crawler?
-    crawler_proc = blacklight_config.crawler_detector
-    return false if crawler_proc.nil? || (defined?(current_user) && current_user.present?)
-
-    crawler_proc.call(request)
   end
 end
