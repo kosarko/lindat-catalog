@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.2'
+ruby '2.7.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.0'
@@ -71,3 +71,11 @@ gem "yabeda-puma-plugin", "~> 0.6.0"
 gem "yabeda-rails", "~> 0.7.2"
 gem "yabeda-prometheus-mmap", "~> 0.2.0"
 
+
+group :development, :test do
+  gem 'solr_wrapper', '>= 0.3'
+end
+gem 'rsolr', '>= 1.0', '< 3'
+gem 'bootstrap', '~> 4.0'
+gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
+gem 'jquery-rails'
