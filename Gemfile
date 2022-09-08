@@ -54,7 +54,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'blacklight', '>=7.0'
+gem 'blacklight', git: 'https://github.com/kosarko/blacklight', branch: 'lindat'
 gem "blacklight_range_limit"
 gem 'crawler_detect'
 

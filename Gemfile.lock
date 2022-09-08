@@ -1,3 +1,19 @@
+GIT
+  remote: https://github.com/kosarko/blacklight
+  revision: 2d4d721d7bade5151aa94a7778ae0c682eac215f
+  branch: lindat
+  specs:
+    blacklight (7.29.0)
+      deprecation
+      globalid
+      hashdiff
+      i18n (>= 1.7.0)
+      jbuilder (~> 2.7)
+      kaminari (>= 0.15)
+      ostruct (>= 0.3.2)
+      rails (>= 5.1, < 7.1)
+      view_component (~> 2.43)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -67,16 +83,6 @@ GEM
     autoprefixer-rails (10.4.7.0)
       execjs (~> 2)
     bindex (0.8.1)
-    blacklight (7.29.0)
-      deprecation
-      globalid
-      hashdiff
-      i18n (>= 1.7.0)
-      jbuilder (~> 2.7)
-      kaminari (>= 0.15)
-      ostruct (>= 0.3.2)
-      rails (>= 5.1, < 7.1)
-      view_component (~> 2.43)
     blacklight_range_limit (8.2.3)
       blacklight (>= 7.25.2, < 9)
     bootsnap (1.13.0)
@@ -322,7 +328,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  blacklight (>= 7.0)
+  blacklight!
   blacklight_range_limit
   bootsnap (>= 1.4.4)
   bootstrap (~> 4.0)
