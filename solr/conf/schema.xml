@@ -226,7 +226,7 @@
   <!-- TODO this contains xml tags, remove those maybe?
             the maxChar limit trims the field on about 10% of resources
    -->
-  <copyField source="orginal_metadata_ss" dest="all_text_timv" maxChars="3000"/>
+  <copyField source="original_metadata_ss" dest="all_text_timv" maxChars="3000"/>
 
   <copyField source="*_tsim" dest="suggest" maxChars="400"/>
   <copyField source="*_tesim" dest="suggest" maxChars="400"/>
