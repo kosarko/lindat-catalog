@@ -42,7 +42,7 @@ preload_app!
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
-activate_control_app 'unix:///tmp/pumactl.sock'
+activate_control_app ENV.fetch('PUMA_CONTROL_URL', 'unix:///tmp/pumactl.sock')
 state_path 'tmp/pids/puma.stats'
 plugin :yabeda
 plugin :yabeda_prometheus
