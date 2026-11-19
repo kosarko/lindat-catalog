@@ -52,8 +52,8 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'blacklight', '>=7.0'
-gem "blacklight_range_limit"
+gem 'blacklight', '~> 7.42.0'   # 7.43 needs Rails 7 + Ruby 3 (despite its gemspec); raised later
+gem 'blacklight_range_limit', '~> 8.5'
 gem 'crawler_detect'
 
 group :development, :test do
