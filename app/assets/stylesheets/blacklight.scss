@@ -1,3 +1,9 @@
 @import 'bootstrap';
 
 @import 'blacklight/blacklight';
+
+// Blacklight 7.43 added white-space: nowrap, which truncates long constraint values
+// (e.g. data provider names) with an ellipsis; wrap them as Blacklight 7.22 did.
+.applied-filter .constraint-value {
+  white-space: normal;
+}
